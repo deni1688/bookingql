@@ -1,0 +1,48 @@
+type Query {
+    bookings(find: BookingFilter = {}): [Booking]
+}
+
+type Booking {
+    _id: String
+    locationStartId: String
+    startDate: String
+    endDate: String
+    type: String
+    state: String
+    created: String
+    estimatedDistance: Float
+    startMileage: Float
+    endMileage: Float
+    cost: Float
+    user: User
+    vehicle: Vehicle
+}
+
+type User {
+    _id: String
+    firstname: String
+    lastname: String
+    email: String
+    permissions: [String]
+}
+
+type Vehicle {
+    _id: String
+    vin: String
+    numberPlate: String
+    brand: String
+    model: String
+    mileage: Float
+}
+
+input BookingFilter {
+    limit: String = "10"
+    page: String = "1"
+    sort: Sort = created
+}
+
+enum Sort {
+    created
+    startDate
+    endDate
+}

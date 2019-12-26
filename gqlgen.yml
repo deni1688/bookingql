@@ -1,0 +1,24 @@
+schema:
+  - schema.graphql
+exec:
+  filename: graphql/generated.go
+model:
+  filename: models/generated.go
+models:
+  Booking:
+    model: github.com/deni1688/bookingql/models.Booking
+    fields:
+      user:
+        resolver: true
+      vehicle:
+        resolver: true
+  BookingFilter:
+    model: github.com/deni1688/bookingql/models.BookingFilter
+  User:
+    model: github.com/deni1688/bookingql/models.User
+  Vehicle:
+    model: github.com/deni1688/bookingql/models.Vehicle
+resolver:
+  filename: graphql/resolver.go
+  type: Resolver
+autobind: []
