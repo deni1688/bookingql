@@ -3,17 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="2c052ed3-2469-4543-b432-c4496f65ce04" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graphql/bookingResolver.go" beforeDir="false" afterPath="$PROJECT_DIR$/graphql/bookingResolver.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graphql/queryResolver.go" beforeDir="false" afterPath="$PROJECT_DIR$/graphql/queryResolver.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graphql/resolver.go" beforeDir="false" afterPath="$PROJECT_DIR$/graphql/resolver.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/loaders/loaders.go" beforeDir="false" afterPath="$PROJECT_DIR$/loaders/loaders.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repo/booking.go" beforeDir="false" afterPath="$PROJECT_DIR$/repositories/booking.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repo/company.go" beforeDir="false" afterPath="$PROJECT_DIR$/repositories/company.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repo/location.go" beforeDir="false" afterPath="$PROJECT_DIR$/repositories/location.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repo/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/repositories/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repo/vehicle.go" beforeDir="false" afterPath="$PROJECT_DIR$/repositories/vehicle.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/server.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/fleetsterAPI.go" beforeDir="false" afterPath="$PROJECT_DIR$/services/fleetsterAPI.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/loaders/companyloader_gen.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/initDataloaders.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/initDataloaders.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +89,7 @@
       <updated>1577322779023</updated>
       <workItem from="1577322780246" duration="18296000" />
       <workItem from="1577466789918" duration="9614000" />
-      <workItem from="1577485679737" duration="3464000" />
+      <workItem from="1577485679737" duration="3569000" />
     </task>
     <servers />
   </component>
