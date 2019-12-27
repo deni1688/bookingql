@@ -20,9 +20,9 @@ func (r *UserRepo) GetUserByID(userID string) (*models.User, error) {
 	api := services.FleetsterAPI{Token: r.Ctx.Value("token").(string)}
 
 	var user *models.User
-	err := api.Get("/users/" + userID, &user)
+	err := api.Get("/users/"+userID, &user)
 	if err != nil {
-		return nil, errors.New("could not parse user with error: " + err.Error())
+		return nil, errors.New("could not retrieve user with error: " + err.Error())
 	}
 
 	r.UserCache[userID] = user

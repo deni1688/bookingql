@@ -19,7 +19,7 @@ func (r *BookingRepo) GetBookings(params *models.BookingParams) ([]*models.Booki
 	var bookings []*models.Booking
 	err := api.Get(query, &bookings)
 	if err != nil {
-		return nil, errors.New("could not parse bookings with error: " + err.Error())
+		return nil, errors.New("could not retrieve bookings with error: " + err.Error())
 	}
 
 	return bookings, nil

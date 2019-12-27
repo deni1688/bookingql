@@ -22,7 +22,7 @@ func (r *VehicleRepo) GetVehicleByID(vehicleID string) (*models.Vehicle, error) 
 	var vehicle *models.Vehicle
 	err := api.Get("/vehicles/"+vehicleID, &vehicle)
 	if err != nil {
-		return nil, errors.New("could not parse vehicle with error: " + err.Error())
+		return nil, errors.New("could not retrieve vehicle with error: " + err.Error())
 	}
 
 	r.VehicleCache[vehicleID] = vehicle
