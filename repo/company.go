@@ -8,12 +8,12 @@ import (
 	"github.com/deni1688/bookingql/services"
 )
 
-type CompaniesRepo struct {
+type CompanyRepo struct {
 	Ctx       context.Context
 	CompanyCache map[string]*models.Company
 }
 
-func (r *CompaniesRepo) GetCompanyByID(companyID string) (*models.Company, error) {
+func (r *CompanyRepo) GetCompanyByID(companyID string) (*models.Company, error) {
 	if company, ok := r.CompanyCache[companyID]; ok {
 		return company, nil
 	}

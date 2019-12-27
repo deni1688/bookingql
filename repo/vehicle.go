@@ -8,12 +8,12 @@ import (
 	"github.com/deni1688/bookingql/services"
 )
 
-type VehiclesRepo struct {
+type VehicleRepo struct {
 	Ctx          context.Context
 	VehicleCache map[string]*models.Vehicle
 }
 
-func (r *VehiclesRepo) GetVehicleByID(vehicleID string) (*models.Vehicle, error) {
+func (r *VehicleRepo) GetVehicleByID(vehicleID string) (*models.Vehicle, error) {
 	if vehicle, ok := r.VehicleCache[vehicleID]; ok {
 		return vehicle, nil
 	}

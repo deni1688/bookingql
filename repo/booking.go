@@ -9,11 +9,11 @@ import (
 	"github.com/deni1688/bookingql/services"
 )
 
-type BookingsRepo struct {
+type BookingRepo struct {
 	Ctx context.Context
 }
 
-func (r *BookingsRepo) GetBookings(params *models.BookingParams) ([]*models.Booking, error) {
+func (r *BookingRepo) GetBookings(params *models.BookingParams) ([]*models.Booking, error) {
 	api := services.FleetsterAPI{Token: r.Ctx.Value("token").(string)}
 	query := fmt.Sprintf("/bookings?limit=%s&page=%s&sort[%s]=%d", params.Limit, params.Page, params.Sort, -1)
 	result, err := api.Get(query)

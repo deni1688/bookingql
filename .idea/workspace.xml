@@ -2,12 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2c052ed3-2469-4543-b432-c4496f65ce04" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/dataloaders/company.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dataloaders/location.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dataloaders/user.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dataloaders/vehicle.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repo/bookings.go" beforeDir="false" afterPath="$PROJECT_DIR$/repo/bookings.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repo/companies.go" beforeDir="false" afterPath="$PROJECT_DIR$/repo/companies.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repo/locations.go" beforeDir="false" afterPath="$PROJECT_DIR$/repo/locations.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repo/users.go" beforeDir="false" afterPath="$PROJECT_DIR$/repo/users.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repo/vehicles.go" beforeDir="false" afterPath="$PROJECT_DIR$/repo/vehicles.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphql/bookingResolver.go" beforeDir="false" afterPath="$PROJECT_DIR$/graphql/bookingResolver.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphql/middleware.go" beforeDir="false" afterPath="$PROJECT_DIR$/graphql/middleware.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphql/queryResolver.go" beforeDir="false" afterPath="$PROJECT_DIR$/graphql/queryResolver.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repo/bookings.go" beforeDir="false" afterPath="$PROJECT_DIR$/repo/booking.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repo/companies.go" beforeDir="false" afterPath="$PROJECT_DIR$/repo/company.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repo/locations.go" beforeDir="false" afterPath="$PROJECT_DIR$/repo/location.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repo/users.go" beforeDir="false" afterPath="$PROJECT_DIR$/repo/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repo/vehicles.go" beforeDir="false" afterPath="$PROJECT_DIR$/repo/vehicle.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/server.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +60,7 @@
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/repo" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -97,6 +107,10 @@
     <proxy>direct</proxy>
   </component>
   <component name="WindowStateProjectService">
+    <state x="515" y="216" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1577454618171">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="515" y="216" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824@0.0.1536.824" timestamp="1577454618171" />
     <state x="400" y="102" key="#com.intellij.ide.util.frameworkSupport.AddFrameworkSupportDialog" timestamp="1577446841334">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -105,9 +119,13 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="168" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1577444215321" />
-    <state x="425" y="189" key="run.anything.popup" timestamp="1577446869039">
+    <state x="277" y="56" key="SettingsEditor" timestamp="1577457650349">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="425" y="189" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1577446869039" />
+    <state x="277" y="56" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1577457650349" />
+    <state x="425" y="189" key="run.anything.popup" timestamp="1577458723654">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="425" y="189" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1577458723654" />
   </component>
 </project>

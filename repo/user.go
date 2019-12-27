@@ -8,12 +8,12 @@ import (
 	"github.com/deni1688/bookingql/services"
 )
 
-type UsersRepo struct {
+type UserRepo struct {
 	Ctx       context.Context
 	UserCache map[string]*models.User
 }
 
-func (r *UsersRepo) GetUserByID(userID string) (*models.User, error) {
+func (r *UserRepo) GetUserByID(userID string) (*models.User, error) {
 	if user, ok := r.UserCache[userID]; ok {
 		return user, nil
 	}

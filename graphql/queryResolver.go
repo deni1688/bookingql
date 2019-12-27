@@ -13,6 +13,6 @@ func (r *Resolver) Query() QueryResolver {
 }
 
 func (r *queryResolver) Bookings(ctx context.Context, params *models.BookingParams) ([]*models.Booking, error) {
-	b := repo.BookingsRepo{Ctx: ctx}
+	b := repo.BookingRepo{Ctx: ctx}
 	return b.GetBookings(params)
 }

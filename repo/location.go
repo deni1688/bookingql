@@ -8,12 +8,12 @@ import (
 	"github.com/deni1688/bookingql/services"
 )
 
-type LocationsRepo struct {
+type LocationRepo struct {
 	Ctx          context.Context
 	LocationCache map[string]*models.Location
 }
 
-func (r *LocationsRepo) GetLocationByID(locationID string) (*models.Location, error) {
+func (r *LocationRepo) GetLocationByID(locationID string) (*models.Location, error) {
 	if vehicle, ok := r.LocationCache[locationID]; ok {
 		return vehicle, nil
 	}
