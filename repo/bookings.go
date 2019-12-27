@@ -13,8 +13,8 @@ type BookingsRepo struct {
 	Ctx context.Context
 }
 
-func (b *BookingsRepo) GetBookings(params *models.BookingParams) ([]*models.Booking, error) {
-	api := services.FleetsterAPI{Token: b.Ctx.Value("token").(string)}
+func (r *BookingsRepo) GetBookings(params *models.BookingParams) ([]*models.Booking, error) {
+	api := services.FleetsterAPI{Token: r.Ctx.Value("token").(string)}
 	query := fmt.Sprintf("/bookings?limit=%s&page=%s&sort[%s]=%d", params.Limit, params.Page, params.Sort, -1)
 	result, err := api.Get(query)
 	if err != nil {

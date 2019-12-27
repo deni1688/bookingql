@@ -13,12 +13,12 @@ type UsersRepo struct {
 	UserCache map[string]*models.User
 }
 
-func (u *UsersRepo) GetUserByID(userID string) (*models.User, error) {
-	if user, ok := u.UserCache[userID]; ok {
+func (r *UsersRepo) GetUserByID(userID string) (*models.User, error) {
+	if user, ok := r.UserCache[userID]; ok {
 		return user, nil
 	}
 
-	api := services.FleetsterAPI{Token: u.Ctx.Value("token").(string)}
+	api := services.FleetsterAPI{Token: r.Ctx.Value("token").(string)}
 
 	result, err := api.Get("/users/" + userID)
 	if err != nil {
@@ -31,7 +31,7 @@ func (u *UsersRepo) GetUserByID(userID string) (*models.User, error) {
 		return nil, errors.New("could not parse user with error: " + err.Error())
 	}
 
-	u.UserCache[userID] = user
+	r.UserCache[userID] = user
 
 	return user, err
 }

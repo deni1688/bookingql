@@ -3,6 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="2c052ed3-2469-4543-b432-c4496f65ce04" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repo/bookings.go" beforeDir="false" afterPath="$PROJECT_DIR$/repo/bookings.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repo/companies.go" beforeDir="false" afterPath="$PROJECT_DIR$/repo/companies.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repo/locations.go" beforeDir="false" afterPath="$PROJECT_DIR$/repo/locations.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repo/users.go" beforeDir="false" afterPath="$PROJECT_DIR$/repo/users.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repo/vehicles.go" beforeDir="false" afterPath="$PROJECT_DIR$/repo/vehicles.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +54,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\denis\go\src\github.com\deni1688\bookingql" />
       <recent name="C:\Users\denis\go\src\github.com\deni1688\bookingql\models" />
       <recent name="C:\Users\denis\go\src\github.com\deni1688\bookingql\graphql" />
     </key>

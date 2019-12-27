@@ -13,12 +13,12 @@ type CompaniesRepo struct {
 	CompanyCache map[string]*models.Company
 }
 
-func (c *CompaniesRepo) GetCompanyByID(companyID string) (*models.Company, error) {
-	if company, ok := c.CompanyCache[companyID]; ok {
+func (r *CompaniesRepo) GetCompanyByID(companyID string) (*models.Company, error) {
+	if company, ok := r.CompanyCache[companyID]; ok {
 		return company, nil
 	}
 
-	api := services.FleetsterAPI{Token: c.Ctx.Value("token").(string)}
+	api := services.FleetsterAPI{Token: r.Ctx.Value("token").(string)}
 
 	result, err := api.Get("/companies/" + companyID)
 	if err != nil {
@@ -31,7 +31,7 @@ func (c *CompaniesRepo) GetCompanyByID(companyID string) (*models.Company, error
 		return nil, errors.New("could not parse company with error: " + err.Error())
 	}
 
-	c.CompanyCache[companyID] = company
+	r.CompanyCache[companyID] = company
 
 	return company, err
 }

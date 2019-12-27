@@ -13,12 +13,12 @@ type LocationsRepo struct {
 	LocationCache map[string]*models.Location
 }
 
-func (l *LocationsRepo) GetLocationByID(locationID string) (*models.Location, error) {
-	if vehicle, ok := l.LocationCache[locationID]; ok {
+func (r *LocationsRepo) GetLocationByID(locationID string) (*models.Location, error) {
+	if vehicle, ok := r.LocationCache[locationID]; ok {
 		return vehicle, nil
 	}
 
-	api := services.FleetsterAPI{Token: l.Ctx.Value("token").(string)}
+	api := services.FleetsterAPI{Token: r.Ctx.Value("token").(string)}
 
 	result, err := api.Get("/locations/" + locationID)
 	if err != nil {
@@ -31,7 +31,7 @@ func (l *LocationsRepo) GetLocationByID(locationID string) (*models.Location, er
 		return nil, errors.New("could not parse location with error: " + err.Error())
 	}
 
-	l.LocationCache[locationID] = vehicle
+	r.LocationCache[locationID] = vehicle
 
 	return vehicle, err
 }

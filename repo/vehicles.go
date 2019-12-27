@@ -13,12 +13,12 @@ type VehiclesRepo struct {
 	VehicleCache map[string]*models.Vehicle
 }
 
-func (v *VehiclesRepo) GetVehicleByID(vehicleID string) (*models.Vehicle, error) {
-	if vehicle, ok := v.VehicleCache[vehicleID]; ok {
+func (r *VehiclesRepo) GetVehicleByID(vehicleID string) (*models.Vehicle, error) {
+	if vehicle, ok := r.VehicleCache[vehicleID]; ok {
 		return vehicle, nil
 	}
 
-	api := services.FleetsterAPI{Token: v.Ctx.Value("token").(string)}
+	api := services.FleetsterAPI{Token: r.Ctx.Value("token").(string)}
 
 	result, err := api.Get("/vehicles/" + vehicleID)
 	if err != nil {
@@ -31,7 +31,7 @@ func (v *VehiclesRepo) GetVehicleByID(vehicleID string) (*models.Vehicle, error)
 		return nil, errors.New("could not parse vehicle with error: " + err.Error())
 	}
 
-	v.VehicleCache[vehicleID] = vehicle
+	r.VehicleCache[vehicleID] = vehicle
 
 	return vehicle, err
 }
