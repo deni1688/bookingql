@@ -1,8 +1,7 @@
-package repo
+package repositories
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
 	"github.com/deni1688/bookingql/models"
 	"github.com/deni1688/bookingql/services"
@@ -20,13 +19,8 @@ func (r *VehicleRepo) GetVehicleByID(vehicleID string) (*models.Vehicle, error) 
 
 	api := services.FleetsterAPI{Token: r.Ctx.Value("token").(string)}
 
-	result, err := api.Get("/vehicles/" + vehicleID)
-	if err != nil {
-		return nil, errors.New("could not retrieve vehicle with error " + err.Error())
-	}
-
 	var vehicle *models.Vehicle
-	err = json.Unmarshal(result, &vehicle)
+	err := api.Get("/vehicles/"+vehicleID, &vehicle)
 	if err != nil {
 		return nil, errors.New("could not parse vehicle with error: " + err.Error())
 	}

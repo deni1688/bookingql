@@ -1,8 +1,7 @@
-package repo
+package repositories
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
 	"github.com/deni1688/bookingql/models"
 	"github.com/deni1688/bookingql/services"
@@ -20,13 +19,8 @@ func (r *LocationRepo) GetLocationByID(locationID string) (*models.Location, err
 
 	api := services.FleetsterAPI{Token: r.Ctx.Value("token").(string)}
 
-	result, err := api.Get("/locations/" + locationID)
-	if err != nil {
-		return nil, errors.New("could not retrieve location with error " + err.Error())
-	}
-
 	var vehicle *models.Location
-	err = json.Unmarshal(result, &vehicle)
+	err := api.Get("/locations/" + locationID, &vehicle)
 	if err != nil {
 		return nil, errors.New("could not parse location with error: " + err.Error())
 	}

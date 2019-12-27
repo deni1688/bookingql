@@ -1,8 +1,7 @@
-package repo
+package repositories
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
 	"github.com/deni1688/bookingql/models"
 	"github.com/deni1688/bookingql/services"
@@ -20,13 +19,8 @@ func (r *UserRepo) GetUserByID(userID string) (*models.User, error) {
 
 	api := services.FleetsterAPI{Token: r.Ctx.Value("token").(string)}
 
-	result, err := api.Get("/users/" + userID)
-	if err != nil {
-		return nil, errors.New("could not retrieve user with error " + err.Error())
-	}
-
 	var user *models.User
-	err = json.Unmarshal(result, &user)
+	err := api.Get("/users/" + userID, &user)
 	if err != nil {
 		return nil, errors.New("could not parse user with error: " + err.Error())
 	}

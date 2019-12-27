@@ -1,8 +1,7 @@
-package repo
+package repositories
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/deni1688/bookingql/models"
@@ -16,13 +15,9 @@ type BookingRepo struct {
 func (r *BookingRepo) GetBookings(params *models.BookingParams) ([]*models.Booking, error) {
 	api := services.FleetsterAPI{Token: r.Ctx.Value("token").(string)}
 	query := fmt.Sprintf("/bookings?limit=%s&page=%s&sort[%s]=%d", params.Limit, params.Page, params.Sort, -1)
-	result, err := api.Get(query)
-	if err != nil {
-		return nil, errors.New("could not retrieve bookings with error " + err.Error())
-	}
 
 	var bookings []*models.Booking
-	err = json.Unmarshal(result, &bookings)
+	err := api.Get(query, &bookings)
 	if err != nil {
 		return nil, errors.New("could not parse bookings with error: " + err.Error())
 	}
