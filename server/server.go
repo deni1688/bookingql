@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"github.com/deni1688/bookingql/graphql"
 	"log"
 	"net/http"
@@ -12,6 +13,8 @@ import (
 const defaultPort = "8080"
 
 func main() {
+	setServerENV()
+
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = defaultPort
@@ -25,4 +28,13 @@ func main() {
 
 	log.Printf("connect to http://localhost:%s/ for GraphQL playground", port)
 	log.Fatal(http.ListenAndServe(":"+port, nil))
+}
+
+func setServerENV() {
+	serverURL := flag.String("server", "https://my.fleetster.de", "Target fleetster server")
+	dumpReq := flag.String("dump-req", "false", "Dumps the outgoing request to the terminal")
+	flag.Parse()
+
+	os.Setenv("SERVER", *serverURL)
+	os.Setenv("DUMPREQ", *dumpReq)
 }
