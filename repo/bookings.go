@@ -13,9 +13,9 @@ type BookingsRepo struct {
 	Ctx context.Context
 }
 
-func (b *BookingsRepo) GetBookings(filter *models.BookingFilter) ([]*models.Booking, error) {
+func (b *BookingsRepo) GetBookings(params *models.BookingParams) ([]*models.Booking, error) {
 	api := services.FleetsterAPI{Token: b.Ctx.Value("token").(string)}
-	query := fmt.Sprintf("/bookings?limit=%s&page=%s&sort[%s]=%d", filter.Limit, filter.Page, filter.Sort, -1)
+	query := fmt.Sprintf("/bookings?limit=%s&page=%s&sort[%s]=%d", params.Limit, params.Page, params.Sort, -1)
 	result, err := api.Get(query)
 	if err != nil {
 		return nil, errors.New("could not retrieve bookings with error " + err.Error())

@@ -4,6 +4,7 @@ type Booking struct {
 	ID                string  `json:"_id"`
 	LocationStartID   string  `json:"locationStartId"`
 	VehicleID         string  `json:"vehicleId"`
+	CompanyID         string  `json:"companyId"`
 	UserID            string  `json:"userId"`
 	StartDate         string  `json:"startDate"`
 	EndDate           string  `json:"endDate"`

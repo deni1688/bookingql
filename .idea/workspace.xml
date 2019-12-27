@@ -2,31 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2c052ed3-2469-4543-b432-c4496f65ce04" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/bookingql.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gqlgen.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graphql/booking_resolver.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graphql/generated.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graphql/middleware.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graphql/query_resolver.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graphql/resolver.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/booking.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/booking_filter.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/generated.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/user.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/vehicle.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/repo/bookings.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/repo/users.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/repo/vehicles.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/schema.graphql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/server.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/fleetsterAPI.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/company.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repo/companies.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gqlgen.yml" beforeDir="false" afterPath="$PROJECT_DIR$/gqlgen.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphql/booking_resolver.go" beforeDir="false" afterPath="$PROJECT_DIR$/graphql/bookingResolver.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphql/generated.go" beforeDir="false" afterPath="$PROJECT_DIR$/graphql/generated.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphql/query_resolver.go" beforeDir="false" afterPath="$PROJECT_DIR$/graphql/queryResolver.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/booking.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/booking.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/bookingFilter.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/bookingParams.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/generated.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/generated.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repo/bookings.go" beforeDir="false" afterPath="$PROJECT_DIR$/repo/bookings.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/schema.graphql" beforeDir="false" afterPath="$PROJECT_DIR$/schema.graphql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

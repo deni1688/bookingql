@@ -12,7 +12,7 @@ func (r *Resolver) Query() QueryResolver {
 	return &queryResolver{r}
 }
 
-func (r *queryResolver) Bookings(ctx context.Context, filter *models.BookingFilter) ([]*models.Booking, error) {
+func (r *queryResolver) Bookings(ctx context.Context, params *models.BookingParams) ([]*models.Booking, error) {
 	b := repo.BookingsRepo{Ctx: ctx}
-	return b.GetBookings(filter)
+	return b.GetBookings(params)
 }

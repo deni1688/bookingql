@@ -1,5 +1,5 @@
 type Query {
-    bookings(find: BookingFilter = {}): [Booking]
+    bookings(find: BookingParams= {}): [Booking]
 }
 
 type Booking {
@@ -16,6 +16,7 @@ type Booking {
     cost: Float
     user: User
     vehicle: Vehicle
+    company: Company
 }
 
 type User {
@@ -35,7 +36,15 @@ type Vehicle {
     mileage: Float
 }
 
-input BookingFilter {
+type Company {
+    _id: String
+    name: String
+    features: [String]
+    language: String
+    adminGroup: String
+}
+
+input BookingParams {
     limit: String = "10"
     page: String = "1"
     sort: Sort = created

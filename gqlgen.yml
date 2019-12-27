@@ -12,12 +12,16 @@ models:
         resolver: true
       vehicle:
         resolver: true
-  BookingFilter:
-    model: github.com/deni1688/bookingql/models.BookingFilter
+      company:
+        resolver: true
+  BookingParams:
+    model: github.com/deni1688/bookingql/models.BookingParams
   User:
     model: github.com/deni1688/bookingql/models.User
   Vehicle:
     model: github.com/deni1688/bookingql/models.Vehicle
+  Company:
+    model: github.com/deni1688/bookingql/models.Company
 resolver:
   filename: graphql/resolver.go
   type: Resolver

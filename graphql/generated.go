@@ -43,6 +43,7 @@ type DirectiveRoot struct {
 
 type ComplexityRoot struct {
 	Booking struct {
+		Company           func(childComplexity int) int
 		Cost              func(childComplexity int) int
 		Created           func(childComplexity int) int
 		EndDate           func(childComplexity int) int
@@ -58,8 +59,16 @@ type ComplexityRoot struct {
 		Vehicle           func(childComplexity int) int
 	}
 
+	Company struct {
+		AdminGroup func(childComplexity int) int
+		Features   func(childComplexity int) int
+		ID         func(childComplexity int) int
+		Language   func(childComplexity int) int
+		Name       func(childComplexity int) int
+	}
+
 	Query struct {
-		Bookings func(childComplexity int, find *models.BookingFilter) int
+		Bookings func(childComplexity int, find *models.BookingParams) int
 	}
 
 	User struct {
@@ -83,9 +92,10 @@ type ComplexityRoot struct {
 type BookingResolver interface {
 	User(ctx context.Context, obj *models.Booking) (*models.User, error)
 	Vehicle(ctx context.Context, obj *models.Booking) (*models.Vehicle, error)
+	Company(ctx context.Context, obj *models.Booking) (*models.Company, error)
 }
 type QueryResolver interface {
-	Bookings(ctx context.Context, find *models.BookingFilter) ([]*models.Booking, error)
+	Bookings(ctx context.Context, find *models.BookingParams) ([]*models.Booking, error)
 }
 
 type executableSchema struct {
@@ -102,6 +112,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 	ec := executionContext{nil, e}
 	_ = ec
 	switch typeName + "." + field {
+
+	case "Booking.company":
+		if e.complexity.Booking.Company == nil {
+			break
+		}
+
+		return e.complexity.Booking.Company(childComplexity), true
 
 	case "Booking.cost":
 		if e.complexity.Booking.Cost == nil {
@@ -194,6 +211,41 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Booking.Vehicle(childComplexity), true
 
+	case "Company.adminGroup":
+		if e.complexity.Company.AdminGroup == nil {
+			break
+		}
+
+		return e.complexity.Company.AdminGroup(childComplexity), true
+
+	case "Company.features":
+		if e.complexity.Company.Features == nil {
+			break
+		}
+
+		return e.complexity.Company.Features(childComplexity), true
+
+	case "Company._id":
+		if e.complexity.Company.ID == nil {
+			break
+		}
+
+		return e.complexity.Company.ID(childComplexity), true
+
+	case "Company.language":
+		if e.complexity.Company.Language == nil {
+			break
+		}
+
+		return e.complexity.Company.Language(childComplexity), true
+
+	case "Company.name":
+		if e.complexity.Company.Name == nil {
+			break
+		}
+
+		return e.complexity.Company.Name(childComplexity), true
+
 	case "Query.bookings":
 		if e.complexity.Query.Bookings == nil {
 			break
@@ -204,7 +256,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Query.Bookings(childComplexity, args["find"].(*models.BookingFilter)), true
+		return e.complexity.Query.Bookings(childComplexity, args["find"].(*models.BookingParams)), true
 
 	case "User.email":
 		if e.complexity.User.Email == nil {
@@ -333,7 +385,7 @@ func (ec *executionContext) introspectType(name string) (*introspection.Type, er
 
 var parsedSchema = gqlparser.MustLoadSchema(
 	&ast.Source{Name: "schema.graphql", Input: `type Query {
-    bookings(find: BookingFilter = {}): [Booking]
+    bookings(find: BookingParams= {}): [Booking]
 }
 
 type Booking {
@@ -350,6 +402,7 @@ type Booking {
     cost: Float
     user: User
     vehicle: Vehicle
+    company: Company
 }
 
 type User {
@@ -369,7 +422,15 @@ type Vehicle {
     mileage: Float
 }
 
-input BookingFilter {
+type Company {
+    _id: String
+    name: String
+    features: [String]
+    language: String
+    adminGroup: String
+}
+
+input BookingParams {
     limit: String = "10"
     page: String = "1"
     sort: Sort = created
@@ -403,9 +464,9 @@ func (ec *executionContext) field_Query___type_args(ctx context.Context, rawArgs
 func (ec *executionContext) field_Query_bookings_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 *models.BookingFilter
+	var arg0 *models.BookingParams
 	if tmp, ok := rawArgs["find"]; ok {
-		arg0, err = ec.unmarshalOBookingFilter2ᚖgithubᚗcomᚋdeni1688ᚋbookingqlᚋmodelsᚐBookingFilter(ctx, tmp)
+		arg0, err = ec.unmarshalOBookingParams2ᚖgithubᚗcomᚋdeni1688ᚋbookingqlᚋmodelsᚐBookingParams(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -892,6 +953,210 @@ func (ec *executionContext) _Booking_vehicle(ctx context.Context, field graphql.
 	return ec.marshalOVehicle2ᚖgithubᚗcomᚋdeni1688ᚋbookingqlᚋmodelsᚐVehicle(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _Booking_company(ctx context.Context, field graphql.CollectedField, obj *models.Booking) (ret graphql.Marshaler) {
+	ctx = ec.Tracer.StartFieldExecution(ctx, field)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+		ec.Tracer.EndFieldExecution(ctx)
+	}()
+	rctx := &graphql.ResolverContext{
+		Object:   "Booking",
+		Field:    field,
+		Args:     nil,
+		IsMethod: true,
+	}
+	ctx = graphql.WithResolverContext(ctx, rctx)
+	ctx = ec.Tracer.StartFieldResolverExecution(ctx, rctx)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Booking().Company(rctx, obj)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*models.Company)
+	rctx.Result = res
+	ctx = ec.Tracer.StartFieldChildExecution(ctx)
+	return ec.marshalOCompany2ᚖgithubᚗcomᚋdeni1688ᚋbookingqlᚋmodelsᚐCompany(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Company__id(ctx context.Context, field graphql.CollectedField, obj *models.Company) (ret graphql.Marshaler) {
+	ctx = ec.Tracer.StartFieldExecution(ctx, field)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+		ec.Tracer.EndFieldExecution(ctx)
+	}()
+	rctx := &graphql.ResolverContext{
+		Object:   "Company",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+	ctx = graphql.WithResolverContext(ctx, rctx)
+	ctx = ec.Tracer.StartFieldResolverExecution(ctx, rctx)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.ID, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	rctx.Result = res
+	ctx = ec.Tracer.StartFieldChildExecution(ctx)
+	return ec.marshalOString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Company_name(ctx context.Context, field graphql.CollectedField, obj *models.Company) (ret graphql.Marshaler) {
+	ctx = ec.Tracer.StartFieldExecution(ctx, field)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+		ec.Tracer.EndFieldExecution(ctx)
+	}()
+	rctx := &graphql.ResolverContext{
+		Object:   "Company",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+	ctx = graphql.WithResolverContext(ctx, rctx)
+	ctx = ec.Tracer.StartFieldResolverExecution(ctx, rctx)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Name, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	rctx.Result = res
+	ctx = ec.Tracer.StartFieldChildExecution(ctx)
+	return ec.marshalOString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Company_features(ctx context.Context, field graphql.CollectedField, obj *models.Company) (ret graphql.Marshaler) {
+	ctx = ec.Tracer.StartFieldExecution(ctx, field)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+		ec.Tracer.EndFieldExecution(ctx)
+	}()
+	rctx := &graphql.ResolverContext{
+		Object:   "Company",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+	ctx = graphql.WithResolverContext(ctx, rctx)
+	ctx = ec.Tracer.StartFieldResolverExecution(ctx, rctx)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Features, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.([]string)
+	rctx.Result = res
+	ctx = ec.Tracer.StartFieldChildExecution(ctx)
+	return ec.marshalOString2ᚕstring(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Company_language(ctx context.Context, field graphql.CollectedField, obj *models.Company) (ret graphql.Marshaler) {
+	ctx = ec.Tracer.StartFieldExecution(ctx, field)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+		ec.Tracer.EndFieldExecution(ctx)
+	}()
+	rctx := &graphql.ResolverContext{
+		Object:   "Company",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+	ctx = graphql.WithResolverContext(ctx, rctx)
+	ctx = ec.Tracer.StartFieldResolverExecution(ctx, rctx)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Language, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	rctx.Result = res
+	ctx = ec.Tracer.StartFieldChildExecution(ctx)
+	return ec.marshalOString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Company_adminGroup(ctx context.Context, field graphql.CollectedField, obj *models.Company) (ret graphql.Marshaler) {
+	ctx = ec.Tracer.StartFieldExecution(ctx, field)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+		ec.Tracer.EndFieldExecution(ctx)
+	}()
+	rctx := &graphql.ResolverContext{
+		Object:   "Company",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+	ctx = graphql.WithResolverContext(ctx, rctx)
+	ctx = ec.Tracer.StartFieldResolverExecution(ctx, rctx)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.AdminGroup, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	rctx.Result = res
+	ctx = ec.Tracer.StartFieldChildExecution(ctx)
+	return ec.marshalOString2string(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _Query_bookings(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	ctx = ec.Tracer.StartFieldExecution(ctx, field)
 	defer func() {
@@ -918,7 +1183,7 @@ func (ec *executionContext) _Query_bookings(ctx context.Context, field graphql.C
 	ctx = ec.Tracer.StartFieldResolverExecution(ctx, rctx)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().Bookings(rctx, args["find"].(*models.BookingFilter))
+		return ec.resolvers.Query().Bookings(rctx, args["find"].(*models.BookingParams))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -2533,8 +2798,8 @@ func (ec *executionContext) ___Type_ofType(ctx context.Context, field graphql.Co
 
 // region    **************************** input.gotpl *****************************
 
-func (ec *executionContext) unmarshalInputBookingFilter(ctx context.Context, obj interface{}) (models.BookingFilter, error) {
-	var it models.BookingFilter
+func (ec *executionContext) unmarshalInputBookingParams(ctx context.Context, obj interface{}) (models.BookingParams, error) {
+	var it models.BookingParams
 	var asMap = obj.(map[string]interface{})
 
 	if _, present := asMap["limit"]; !present {
@@ -2636,6 +2901,49 @@ func (ec *executionContext) _Booking(ctx context.Context, sel ast.SelectionSet, 
 				res = ec._Booking_vehicle(ctx, field, obj)
 				return res
 			})
+		case "company":
+			field := field
+			out.Concurrently(i, func() (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Booking_company(ctx, field, obj)
+				return res
+			})
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch()
+	if invalids > 0 {
+		return graphql.Null
+	}
+	return out
+}
+
+var companyImplementors = []string{"Company"}
+
+func (ec *executionContext) _Company(ctx context.Context, sel ast.SelectionSet, obj *models.Company) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.RequestContext, sel, companyImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	var invalids uint32
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("Company")
+		case "_id":
+			out.Values[i] = ec._Company__id(ctx, field, obj)
+		case "name":
+			out.Values[i] = ec._Company_name(ctx, field, obj)
+		case "features":
+			out.Values[i] = ec._Company_features(ctx, field, obj)
+		case "language":
+			out.Values[i] = ec._Company_language(ctx, field, obj)
+		case "adminGroup":
+			out.Values[i] = ec._Company_adminGroup(ctx, field, obj)
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -3304,15 +3612,15 @@ func (ec *executionContext) marshalOBooking2ᚖgithubᚗcomᚋdeni1688ᚋbooking
 	return ec._Booking(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalOBookingFilter2githubᚗcomᚋdeni1688ᚋbookingqlᚋmodelsᚐBookingFilter(ctx context.Context, v interface{}) (models.BookingFilter, error) {
-	return ec.unmarshalInputBookingFilter(ctx, v)
+func (ec *executionContext) unmarshalOBookingParams2githubᚗcomᚋdeni1688ᚋbookingqlᚋmodelsᚐBookingParams(ctx context.Context, v interface{}) (models.BookingParams, error) {
+	return ec.unmarshalInputBookingParams(ctx, v)
 }
 
-func (ec *executionContext) unmarshalOBookingFilter2ᚖgithubᚗcomᚋdeni1688ᚋbookingqlᚋmodelsᚐBookingFilter(ctx context.Context, v interface{}) (*models.BookingFilter, error) {
+func (ec *executionContext) unmarshalOBookingParams2ᚖgithubᚗcomᚋdeni1688ᚋbookingqlᚋmodelsᚐBookingParams(ctx context.Context, v interface{}) (*models.BookingParams, error) {
 	if v == nil {
 		return nil, nil
 	}
-	res, err := ec.unmarshalOBookingFilter2githubᚗcomᚋdeni1688ᚋbookingqlᚋmodelsᚐBookingFilter(ctx, v)
+	res, err := ec.unmarshalOBookingParams2githubᚗcomᚋdeni1688ᚋbookingqlᚋmodelsᚐBookingParams(ctx, v)
 	return &res, err
 }
 
@@ -3337,6 +3645,17 @@ func (ec *executionContext) marshalOBoolean2ᚖbool(ctx context.Context, sel ast
 		return graphql.Null
 	}
 	return ec.marshalOBoolean2bool(ctx, sel, *v)
+}
+
+func (ec *executionContext) marshalOCompany2githubᚗcomᚋdeni1688ᚋbookingqlᚋmodelsᚐCompany(ctx context.Context, sel ast.SelectionSet, v models.Company) graphql.Marshaler {
+	return ec._Company(ctx, sel, &v)
+}
+
+func (ec *executionContext) marshalOCompany2ᚖgithubᚗcomᚋdeni1688ᚋbookingqlᚋmodelsᚐCompany(ctx context.Context, sel ast.SelectionSet, v *models.Company) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._Company(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalOFloat2float64(ctx context.Context, v interface{}) (float64, error) {

@@ -18,6 +18,11 @@ func (r *bookingResolver) Vehicle(ctx context.Context, obj *models.Booking) (*mo
 	return v.GetVehicleByID(obj.VehicleID)
 }
 
+func (r *bookingResolver) Company(ctx context.Context, obj *models.Booking) (*models.Company, error) {
+	c := repo.CompaniesRepo{Ctx: ctx, CompanyCache: map[string]*models.Company{}}
+	return c.GetCompanyByID(obj.CompanyID)
+}
+
 func (r *Resolver) Booking() BookingResolver {
 	return &bookingResolver{r}
 }
