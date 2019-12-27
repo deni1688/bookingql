@@ -15,9 +15,9 @@ type CompanyRepo struct {
 
 func (r *CompanyRepo) GetCompanyByID(companyID string) (*models.Company, error) {
 	if company, ok := r.CompanyCache[companyID]; ok {
+
 		return company, nil
 	}
-
 	api := services.FleetsterAPI{Token: r.Ctx.Value("token").(string)}
 
 	result, err := api.Get("/companies/" + companyID)

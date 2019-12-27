@@ -25,8 +25,7 @@ func (f *FleetsterAPI) Get(endpoint string) ([]byte, error) {
 	}
 
 	req.Header.Add("authorization", f.Token)
-
-	dumpRequestInfo(err, req)
+	dumpRequestInfo(req)
 
 	resp, err := client.Do(req)
 	if err != nil {
@@ -43,7 +42,19 @@ func (f *FleetsterAPI) Get(endpoint string) ([]byte, error) {
 	return ioutil.ReadAll(resp.Body)
 }
 
-func dumpRequestInfo(err error, req *http.Request) {
+func (f *FleetsterAPI) BuildQuery(keys []string) string {
+	query := "?"
+
+	for i, k := range keys {
+		if i > 0 && i <= len(keys)-1 {
+			query += "&"
+		}
+		query += fmt.Sprintf("_id[$in][%d]=%s", i, k)
+	}
+	return query
+}
+
+func dumpRequestInfo(req *http.Request) {
 	if b, _ := strconv.ParseBool(os.Getenv("DUMPREQ")); b {
 		dumpReq, _ := httputil.DumpRequest(req, false)
 		fmt.Println(string(dumpReq))
