@@ -14,9 +14,12 @@ type Booking {
     startMileage: Float
     endMileage: Float
     cost: Float
+
+    # Nested data
     user: User
     vehicle: Vehicle
     company: Company
+    location: Location
 }
 
 type User {
@@ -42,6 +45,16 @@ type Company {
     features: [String]
     language: String
     adminGroup: String
+}
+
+type Location {
+    _id: String
+    name: String
+    streetName: String
+    streetNumber: String
+    postcode: String
+    city: String
+    timezone: String
 }
 
 input BookingParams {

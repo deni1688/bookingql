@@ -2,18 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2c052ed3-2469-4543-b432-c4496f65ce04" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/models/company.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/repo/companies.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/location.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repo/locations.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/build.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gqlgen.yml" beforeDir="false" afterPath="$PROJECT_DIR$/gqlgen.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graphql/booking_resolver.go" beforeDir="false" afterPath="$PROJECT_DIR$/graphql/bookingResolver.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphql/bookingResolver.go" beforeDir="false" afterPath="$PROJECT_DIR$/graphql/bookingResolver.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/graphql/generated.go" beforeDir="false" afterPath="$PROJECT_DIR$/graphql/generated.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graphql/query_resolver.go" beforeDir="false" afterPath="$PROJECT_DIR$/graphql/queryResolver.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/booking.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/booking.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/bookingFilter.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/bookingParams.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/generated.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/generated.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repo/bookings.go" beforeDir="false" afterPath="$PROJECT_DIR$/repo/bookings.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphql/resolver.go" beforeDir="false" afterPath="$PROJECT_DIR$/graphql/resolver.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/schema.graphql" beforeDir="false" afterPath="$PROJECT_DIR$/schema.graphql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/fleetsterAPI.go" beforeDir="false" afterPath="$PROJECT_DIR$/services/fleetsterAPI.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,13 +58,13 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/repo" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\denis\go\src\github.com\deni1688\bookingql\repo" />
-      <recent name="C:\Users\denis\go\src\github.com\deni1688\bookingql\models" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\denis\go\src\github.com\deni1688\bookingql\models" />
       <recent name="C:\Users\denis\go\src\github.com\deni1688\bookingql\graphql" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\denis\go\src\github.com\deni1688\bookingql\repo" />
+      <recent name="C:\Users\denis\go\src\github.com\deni1688\bookingql\models" />
     </key>
   </component>
   <component name="ServiceViewManager">
@@ -102,9 +101,17 @@
     <proxy>direct</proxy>
   </component>
   <component name="WindowStateProjectService">
-    <state x="425" y="189" key="run.anything.popup" timestamp="1577332218082">
+    <state x="400" y="102" key="#com.intellij.ide.util.frameworkSupport.AddFrameworkSupportDialog" timestamp="1577446841334">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="425" y="189" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1577332218082" />
+    <state x="400" y="102" key="#com.intellij.ide.util.frameworkSupport.AddFrameworkSupportDialog/0.0.1536.824@0.0.1536.824" timestamp="1577446841334" />
+    <state x="549" y="168" key="FileChooserDialogImpl" timestamp="1577444215321">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="549" y="168" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1577444215321" />
+    <state x="425" y="189" key="run.anything.popup" timestamp="1577446869039">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="425" y="189" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1577446869039" />
   </component>
 </project>

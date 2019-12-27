@@ -14,6 +14,8 @@ models:
         resolver: true
       company:
         resolver: true
+      location:
+        resolver: true
   BookingParams:
     model: github.com/deni1688/bookingql/models.BookingParams
   User:
@@ -22,6 +24,8 @@ models:
     model: github.com/deni1688/bookingql/models.Vehicle
   Company:
     model: github.com/deni1688/bookingql/models.Company
+  Location:
+    model: github.com/deni1688/bookingql/models.Location
 resolver:
   filename: graphql/resolver.go
   type: Resolver

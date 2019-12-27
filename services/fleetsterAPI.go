@@ -6,6 +6,8 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/http/httputil"
+	"os"
+	"strconv"
 )
 
 var client = &http.Client{}
@@ -15,15 +17,16 @@ type FleetsterAPI struct {
 }
 
 func (f *FleetsterAPI) Get(endpoint string) ([]byte, error) {
-	req, err := http.NewRequest("GET", "https://release.fleetster.de"+endpoint, nil)
+	base := os.Getenv("SERVER")
+
+	req, err := http.NewRequest("GET", base+endpoint, nil)
 	if err != nil {
 		return nil, err
 	}
 
 	req.Header.Add("authorization", f.Token)
 
-	requestDump, err := httputil.DumpRequest(req, false)
-	fmt.Println(string(requestDump))
+	dumpRequestInfo(err, req)
 
 	resp, err := client.Do(req)
 	if err != nil {
@@ -38,4 +41,11 @@ func (f *FleetsterAPI) Get(endpoint string) ([]byte, error) {
 	defer resp.Body.Close()
 
 	return ioutil.ReadAll(resp.Body)
+}
+
+func dumpRequestInfo(err error, req *http.Request) {
+	if b, _ := strconv.ParseBool(os.Getenv("DUMPREQ")); b {
+		dumpReq, _ := httputil.DumpRequest(req, false)
+		fmt.Println(string(dumpReq))
+	}
 }
