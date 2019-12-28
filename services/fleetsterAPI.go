@@ -50,13 +50,7 @@ func (f *FleetsterAPI) Get(endpoint string, model interface{}) error {
 
 func (f *FleetsterAPI) GetKeys(entity string, keys []string, model interface{}) error {
 	query := buildQuery(keys)
-
-	err := f.Get(entity+query, &model)
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return f.Get(entity+query, &model)
 }
 
 func buildQuery(keys []string) string {
