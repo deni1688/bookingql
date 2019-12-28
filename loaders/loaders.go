@@ -37,10 +37,10 @@ func (l *UserLoader) NewUserLoader(token string) *UserLoader {
 		var users []*models.User
 		err := api.GetKeys("/users", keys, &users)
 		if err != nil {
-			return nil, []error{errors.New("could not retrieve user with error " + err.Error())}
+			return nil, []error{errors.New("could not retrieve users with error " + err.Error())}
 		}
 
-		collectionMap := map[string]*models.User{}
+		collectionMap := make(map[string]*models.User)
 		for _, u := range users {
 			collectionMap[u.ID] = u
 		}
@@ -67,7 +67,7 @@ func (l *LocationLoader) NewLocationLoader(token string) *LocationLoader {
 			return nil, []error{errors.New("could not retrieve locations with error " + err.Error())}
 		}
 
-		collectionMap := map[string]*models.Location{}
+		collectionMap := make(map[string]*models.Location)
 		for _, lc := range locations {
 			collectionMap[lc.ID] = lc
 		}
@@ -94,7 +94,7 @@ func (l *VehicleLoader) NewVehicleLoader(token string) *VehicleLoader {
 			return nil, []error{errors.New("could not retrieve vehicles with error " + err.Error())}
 		}
 
-		collectionMap := map[string]*models.Vehicle{}
+		collectionMap := make(map[string]*models.Vehicle)
 		for _, v := range vehicles {
 			collectionMap[v.ID] = v
 		}
