@@ -1,17 +1,18 @@
 ### Golang Graphql Layer for fleetster Bookings API
 
 This project is mostly a exploration of possibilities with GQLGen and GraphQL in Go. 
-It is not a production ready service. The models to not expose all of the fields you would expect since I don't really needed at this point.
+It is not a production ready service. The models do not expose all of the fields you would expect since I don't really needed at this point.
+
 
 #### Build
-Run ... 
-```shell script
-sh scripts/build
+You will need to have GO installed to build the executable. Run ... 
+```bash
+sh scripts/build.sh
 ```
 #### Start GraphQL Server
-Run ... 
-```shell script
-./bookingql -server TARGET_FEETSTER_SERVER
+Comes with GraphQL Playground. Run ... 
+```bash
+./bookingql -server TARGET_FLEETSTER_SERVER
 ```
 
 #### Notes
