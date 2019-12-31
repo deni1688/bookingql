@@ -1,5 +1,9 @@
 schema:
-  - schema.graphql
+  - graphql/schemas/root.graphql
+  - graphql/schemas/user.graphql
+  - graphql/schemas/booking.graphql
+  - graphql/schemas/company.graphql
+  - graphql/schemas/vehicle.graphql
 exec:
   filename: graphql/generated.go
 model:
@@ -18,6 +22,6 @@ models:
   Location:
     model: github.com/deni1688/bookingql/models.Location
 resolver:
-  filename: graphql/resolver.go
+  filename: graphql/resolvers/resolver.go
   type: Resolver
 autobind: []

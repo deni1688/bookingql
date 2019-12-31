@@ -1,0 +1,18 @@
+type Booking {
+    _id: String
+    locationStartId: String
+    startDate: String
+    endDate: String
+    type: String
+    state: String
+    created: String
+    estimatedDistance: Float
+    startMileage: Float
+    endMileage: Float
+    cost: Float
+
+    # Nested data
+    user: User
+    vehicle: Vehicle
+    company: Company
+}

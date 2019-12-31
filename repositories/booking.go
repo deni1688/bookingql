@@ -38,7 +38,13 @@ func buildBookingQuery(params *models.BookingParams) string {
 		p.Add(k, v)
 	}
 
-	return p.Encode() + hydrate([]string{"companyId", "userId", "vehicleId"})
+	s := string(params.Sort)
+
+	return p.Encode() + hydrate([]string{"companyId", "userId", "vehicleId"}) + sortBy(s, "-1")
+}
+
+func sortBy(prop string, orderBy string) string {
+	return fmt.Sprintf("&sort[%s]=%s", prop, orderBy)
 }
 
 func hydrate(entities []string) string {

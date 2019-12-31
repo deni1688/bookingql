@@ -1,3 +1,3 @@
-package graphql
+package resolvers
 
 type Resolver struct{}

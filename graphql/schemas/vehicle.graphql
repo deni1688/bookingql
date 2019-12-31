@@ -1,0 +1,9 @@
+
+type Vehicle {
+    _id: String
+    vin: String
+    numberPlate: String
+    brand: String
+    model: String
+    mileage: Float
+}

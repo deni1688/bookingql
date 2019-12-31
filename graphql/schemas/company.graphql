@@ -1,0 +1,7 @@
+type Company {
+    _id: String
+    name: String
+    features: [String]
+    language: String
+    adminGroup: String
+}

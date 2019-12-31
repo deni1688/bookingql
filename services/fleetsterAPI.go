@@ -48,16 +48,16 @@ func (f *FleetsterAPI) Get(endpoint string, model interface{}) error {
 	return json.Unmarshal(b, &model)
 }
 
-func (f *FleetsterAPI) GetKeys(entity string, keys []string, model interface{}) error {
-	query := buildQuery(keys)
+func (f *FleetsterAPI) GetByIds(entity string, ids []string, model interface{}) error {
+	query := buildQuery(ids)
 	return f.Get(entity+query, &model)
 }
 
-func buildQuery(keys []string) string {
+func buildQuery(ids []string) string {
 	query := "?"
 
-	for i, k := range keys {
-		if i > 0 && i <= len(keys)-1 {
+	for i, k := range ids {
+		if i > 0 && i <= len(ids)-1 {
 			query += "&"
 		}
 		query += fmt.Sprintf("_id[$in][%d]=%s", i, k)

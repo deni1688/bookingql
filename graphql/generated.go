@@ -66,16 +66,6 @@ type ComplexityRoot struct {
 		Name       func(childComplexity int) int
 	}
 
-	Location struct {
-		City         func(childComplexity int) int
-		ID           func(childComplexity int) int
-		Name         func(childComplexity int) int
-		Postcode     func(childComplexity int) int
-		StreetName   func(childComplexity int) int
-		StreetNumber func(childComplexity int) int
-		Timezone     func(childComplexity int) int
-	}
-
 	Query struct {
 		Bookings func(childComplexity int, find *models.BookingParams) int
 	}
@@ -250,55 +240,6 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Company.Name(childComplexity), true
 
-	case "Location.city":
-		if e.complexity.Location.City == nil {
-			break
-		}
-
-		return e.complexity.Location.City(childComplexity), true
-
-	case "Location._id":
-		if e.complexity.Location.ID == nil {
-			break
-		}
-
-		return e.complexity.Location.ID(childComplexity), true
-
-	case "Location.name":
-		if e.complexity.Location.Name == nil {
-			break
-		}
-
-		return e.complexity.Location.Name(childComplexity), true
-
-	case "Location.postcode":
-		if e.complexity.Location.Postcode == nil {
-			break
-		}
-
-		return e.complexity.Location.Postcode(childComplexity), true
-
-	case "Location.streetName":
-		if e.complexity.Location.StreetName == nil {
-			break
-		}
-
-		return e.complexity.Location.StreetName(childComplexity), true
-
-	case "Location.streetNumber":
-		if e.complexity.Location.StreetNumber == nil {
-			break
-		}
-
-		return e.complexity.Location.StreetNumber(childComplexity), true
-
-	case "Location.timezone":
-		if e.complexity.Location.Timezone == nil {
-			break
-		}
-
-		return e.complexity.Location.Timezone(childComplexity), true
-
 	case "Query.bookings":
 		if e.complexity.Query.Bookings == nil {
 			break
@@ -437,11 +378,7 @@ func (ec *executionContext) introspectType(name string) (*introspection.Type, er
 }
 
 var parsedSchema = gqlparser.MustLoadSchema(
-	&ast.Source{Name: "schema.graphql", Input: `type Query {
-    bookings(find: BookingParams= {}): [Booking]
-}
-
-type Booking {
+	&ast.Source{Name: "graphql/schemas/booking.graphql", Input: `type Booking {
     _id: String
     locationStartId: String
     startDate: String
@@ -458,41 +395,16 @@ type Booking {
     user: User
     vehicle: Vehicle
     company: Company
-}
-
-type User {
-    _id: String
-    firstname: String
-    lastname: String
-    email: String
-    permissions: [String]
-}
-
-type Vehicle {
-    _id: String
-    vin: String
-    numberPlate: String
-    brand: String
-    model: String
-    mileage: Float
-}
-
-type Company {
+}`},
+	&ast.Source{Name: "graphql/schemas/company.graphql", Input: `type Company {
     _id: String
     name: String
     features: [String]
     language: String
     adminGroup: String
-}
-
-type Location {
-    _id: String
-    name: String
-    streetName: String
-    streetNumber: String
-    postcode: String
-    city: String
-    timezone: String
+}`},
+	&ast.Source{Name: "graphql/schemas/root.graphql", Input: `type Query {
+    bookings(find: BookingParams= {}): [Booking]
 }
 
 input BookingParams {
@@ -505,6 +417,24 @@ enum Sort {
     created
     startDate
     endDate
+}`},
+	&ast.Source{Name: "graphql/schemas/user.graphql", Input: `
+type User {
+    _id: String
+    firstname: String
+    lastname: String
+    email: String
+    permissions: [String]
+}
+`},
+	&ast.Source{Name: "graphql/schemas/vehicle.graphql", Input: `
+type Vehicle {
+    _id: String
+    vin: String
+    numberPlate: String
+    brand: String
+    model: String
+    mileage: Float
 }`},
 )
 
@@ -1208,244 +1138,6 @@ func (ec *executionContext) _Company_adminGroup(ctx context.Context, field graph
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
 		return obj.AdminGroup, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		return graphql.Null
-	}
-	res := resTmp.(string)
-	rctx.Result = res
-	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOString2string(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _Location__id(ctx context.Context, field graphql.CollectedField, obj *models.Location) (ret graphql.Marshaler) {
-	ctx = ec.Tracer.StartFieldExecution(ctx, field)
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-		ec.Tracer.EndFieldExecution(ctx)
-	}()
-	rctx := &graphql.ResolverContext{
-		Object:   "Location",
-		Field:    field,
-		Args:     nil,
-		IsMethod: false,
-	}
-	ctx = graphql.WithResolverContext(ctx, rctx)
-	ctx = ec.Tracer.StartFieldResolverExecution(ctx, rctx)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.ID, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		return graphql.Null
-	}
-	res := resTmp.(string)
-	rctx.Result = res
-	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOString2string(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _Location_name(ctx context.Context, field graphql.CollectedField, obj *models.Location) (ret graphql.Marshaler) {
-	ctx = ec.Tracer.StartFieldExecution(ctx, field)
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-		ec.Tracer.EndFieldExecution(ctx)
-	}()
-	rctx := &graphql.ResolverContext{
-		Object:   "Location",
-		Field:    field,
-		Args:     nil,
-		IsMethod: false,
-	}
-	ctx = graphql.WithResolverContext(ctx, rctx)
-	ctx = ec.Tracer.StartFieldResolverExecution(ctx, rctx)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.Name, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		return graphql.Null
-	}
-	res := resTmp.(string)
-	rctx.Result = res
-	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOString2string(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _Location_streetName(ctx context.Context, field graphql.CollectedField, obj *models.Location) (ret graphql.Marshaler) {
-	ctx = ec.Tracer.StartFieldExecution(ctx, field)
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-		ec.Tracer.EndFieldExecution(ctx)
-	}()
-	rctx := &graphql.ResolverContext{
-		Object:   "Location",
-		Field:    field,
-		Args:     nil,
-		IsMethod: false,
-	}
-	ctx = graphql.WithResolverContext(ctx, rctx)
-	ctx = ec.Tracer.StartFieldResolverExecution(ctx, rctx)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.StreetName, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		return graphql.Null
-	}
-	res := resTmp.(string)
-	rctx.Result = res
-	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOString2string(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _Location_streetNumber(ctx context.Context, field graphql.CollectedField, obj *models.Location) (ret graphql.Marshaler) {
-	ctx = ec.Tracer.StartFieldExecution(ctx, field)
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-		ec.Tracer.EndFieldExecution(ctx)
-	}()
-	rctx := &graphql.ResolverContext{
-		Object:   "Location",
-		Field:    field,
-		Args:     nil,
-		IsMethod: false,
-	}
-	ctx = graphql.WithResolverContext(ctx, rctx)
-	ctx = ec.Tracer.StartFieldResolverExecution(ctx, rctx)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.StreetNumber, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		return graphql.Null
-	}
-	res := resTmp.(string)
-	rctx.Result = res
-	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOString2string(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _Location_postcode(ctx context.Context, field graphql.CollectedField, obj *models.Location) (ret graphql.Marshaler) {
-	ctx = ec.Tracer.StartFieldExecution(ctx, field)
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-		ec.Tracer.EndFieldExecution(ctx)
-	}()
-	rctx := &graphql.ResolverContext{
-		Object:   "Location",
-		Field:    field,
-		Args:     nil,
-		IsMethod: false,
-	}
-	ctx = graphql.WithResolverContext(ctx, rctx)
-	ctx = ec.Tracer.StartFieldResolverExecution(ctx, rctx)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.Postcode, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		return graphql.Null
-	}
-	res := resTmp.(string)
-	rctx.Result = res
-	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOString2string(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _Location_city(ctx context.Context, field graphql.CollectedField, obj *models.Location) (ret graphql.Marshaler) {
-	ctx = ec.Tracer.StartFieldExecution(ctx, field)
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-		ec.Tracer.EndFieldExecution(ctx)
-	}()
-	rctx := &graphql.ResolverContext{
-		Object:   "Location",
-		Field:    field,
-		Args:     nil,
-		IsMethod: false,
-	}
-	ctx = graphql.WithResolverContext(ctx, rctx)
-	ctx = ec.Tracer.StartFieldResolverExecution(ctx, rctx)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.City, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		return graphql.Null
-	}
-	res := resTmp.(string)
-	rctx.Result = res
-	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOString2string(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _Location_timezone(ctx context.Context, field graphql.CollectedField, obj *models.Location) (ret graphql.Marshaler) {
-	ctx = ec.Tracer.StartFieldExecution(ctx, field)
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-		ec.Tracer.EndFieldExecution(ctx)
-	}()
-	rctx := &graphql.ResolverContext{
-		Object:   "Location",
-		Field:    field,
-		Args:     nil,
-		IsMethod: false,
-	}
-	ctx = graphql.WithResolverContext(ctx, rctx)
-	ctx = ec.Tracer.StartFieldResolverExecution(ctx, rctx)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.Timezone, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -3220,42 +2912,6 @@ func (ec *executionContext) _Company(ctx context.Context, sel ast.SelectionSet, 
 			out.Values[i] = ec._Company_language(ctx, field, obj)
 		case "adminGroup":
 			out.Values[i] = ec._Company_adminGroup(ctx, field, obj)
-		default:
-			panic("unknown field " + strconv.Quote(field.Name))
-		}
-	}
-	out.Dispatch()
-	if invalids > 0 {
-		return graphql.Null
-	}
-	return out
-}
-
-var locationImplementors = []string{"Location"}
-
-func (ec *executionContext) _Location(ctx context.Context, sel ast.SelectionSet, obj *models.Location) graphql.Marshaler {
-	fields := graphql.CollectFields(ec.RequestContext, sel, locationImplementors)
-
-	out := graphql.NewFieldSet(fields)
-	var invalids uint32
-	for i, field := range fields {
-		switch field.Name {
-		case "__typename":
-			out.Values[i] = graphql.MarshalString("Location")
-		case "_id":
-			out.Values[i] = ec._Location__id(ctx, field, obj)
-		case "name":
-			out.Values[i] = ec._Location_name(ctx, field, obj)
-		case "streetName":
-			out.Values[i] = ec._Location_streetName(ctx, field, obj)
-		case "streetNumber":
-			out.Values[i] = ec._Location_streetNumber(ctx, field, obj)
-		case "postcode":
-			out.Values[i] = ec._Location_postcode(ctx, field, obj)
-		case "city":
-			out.Values[i] = ec._Location_city(ctx, field, obj)
-		case "timezone":
-			out.Values[i] = ec._Location_timezone(ctx, field, obj)
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
