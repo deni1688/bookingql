@@ -15,5 +15,5 @@ Comes with GraphQL Playground. Pass auth token through headers. Run ...
 ./bookingql -server TARGET_FLEETSTER_SERVER
 ```
 
-#### Notes
-I am still not sure what the best way is to handle the dataloading. The loaders seem to work fine but it does cause an issue for the companies by id endpoint which uses the repo instead of the loaders (API specific requirement)
+#### DataLoaders
+The project was initially using DataLoaders (still present in dev branch) but I have removed them in favor of data hydration on the API side. 
