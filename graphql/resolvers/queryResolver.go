@@ -14,6 +14,5 @@ func (r *Resolver) Query() graphql.QueryResolver {
 }
 
 func (r *queryResolver) Bookings(ctx context.Context, params *models.BookingParams) ([]*models.Booking, error) {
-	b := repositories.BookingRepo{Ctx: ctx}
-	return b.GetBookings(params)
+	return repositories.BookingRepo{Ctx: ctx}.GetBookings(params)
 }
