@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"github.com/deni1688/bookingql/graphql"
-	"github.com/deni1688/bookingql/loaders"
 	"log"
 	"net/http"
 	"os"
@@ -21,7 +20,7 @@ func main() {
 		port = defaultPort
 	}
 
-	config := graphql.Config{Resolvers: &graphql.Resolver{Loaders: &loaders.Loaders{}}}
+	config := graphql.Config{Resolvers: &graphql.Resolver{}}
 	queryHandler := handler.GraphQL(graphql.NewExecutableSchema(config))
 
 	http.Handle("/", handler.Playground("GraphQL playground", "/query"))

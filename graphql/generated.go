@@ -34,7 +34,6 @@ type Config struct {
 }
 
 type ResolverRoot interface {
-	Booking() BookingResolver
 	Query() QueryResolver
 }
 
@@ -50,7 +49,6 @@ type ComplexityRoot struct {
 		EndMileage        func(childComplexity int) int
 		EstimatedDistance func(childComplexity int) int
 		ID                func(childComplexity int) int
-		Location          func(childComplexity int) int
 		LocationStartID   func(childComplexity int) int
 		StartDate         func(childComplexity int) int
 		StartMileage      func(childComplexity int) int
@@ -100,12 +98,6 @@ type ComplexityRoot struct {
 	}
 }
 
-type BookingResolver interface {
-	User(ctx context.Context, obj *models.Booking) (*models.User, error)
-	Vehicle(ctx context.Context, obj *models.Booking) (*models.Vehicle, error)
-	Company(ctx context.Context, obj *models.Booking) (*models.Company, error)
-	Location(ctx context.Context, obj *models.Booking) (*models.Location, error)
-}
 type QueryResolver interface {
 	Bookings(ctx context.Context, find *models.BookingParams) ([]*models.Booking, error)
 }
@@ -173,13 +165,6 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Booking.ID(childComplexity), true
-
-	case "Booking.location":
-		if e.complexity.Booking.Location == nil {
-			break
-		}
-
-		return e.complexity.Booking.Location(childComplexity), true
 
 	case "Booking.locationStartId":
 		if e.complexity.Booking.LocationStartID == nil {
@@ -473,7 +458,6 @@ type Booking {
     user: User
     vehicle: Vehicle
     company: Company
-    location: Location
 }
 
 type User {
@@ -979,13 +963,13 @@ func (ec *executionContext) _Booking_user(ctx context.Context, field graphql.Col
 		Object:   "Booking",
 		Field:    field,
 		Args:     nil,
-		IsMethod: true,
+		IsMethod: false,
 	}
 	ctx = graphql.WithResolverContext(ctx, rctx)
 	ctx = ec.Tracer.StartFieldResolverExecution(ctx, rctx)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Booking().User(rctx, obj)
+		return obj.User, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -994,10 +978,10 @@ func (ec *executionContext) _Booking_user(ctx context.Context, field graphql.Col
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*models.User)
+	res := resTmp.(models.User)
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOUser2ᚖgithubᚗcomᚋdeni1688ᚋbookingqlᚋmodelsᚐUser(ctx, field.Selections, res)
+	return ec.marshalOUser2githubᚗcomᚋdeni1688ᚋbookingqlᚋmodelsᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Booking_vehicle(ctx context.Context, field graphql.CollectedField, obj *models.Booking) (ret graphql.Marshaler) {
@@ -1013,13 +997,13 @@ func (ec *executionContext) _Booking_vehicle(ctx context.Context, field graphql.
 		Object:   "Booking",
 		Field:    field,
 		Args:     nil,
-		IsMethod: true,
+		IsMethod: false,
 	}
 	ctx = graphql.WithResolverContext(ctx, rctx)
 	ctx = ec.Tracer.StartFieldResolverExecution(ctx, rctx)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Booking().Vehicle(rctx, obj)
+		return obj.Vehicle, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1028,10 +1012,10 @@ func (ec *executionContext) _Booking_vehicle(ctx context.Context, field graphql.
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*models.Vehicle)
+	res := resTmp.(models.Vehicle)
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOVehicle2ᚖgithubᚗcomᚋdeni1688ᚋbookingqlᚋmodelsᚐVehicle(ctx, field.Selections, res)
+	return ec.marshalOVehicle2githubᚗcomᚋdeni1688ᚋbookingqlᚋmodelsᚐVehicle(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Booking_company(ctx context.Context, field graphql.CollectedField, obj *models.Booking) (ret graphql.Marshaler) {
@@ -1047,13 +1031,13 @@ func (ec *executionContext) _Booking_company(ctx context.Context, field graphql.
 		Object:   "Booking",
 		Field:    field,
 		Args:     nil,
-		IsMethod: true,
+		IsMethod: false,
 	}
 	ctx = graphql.WithResolverContext(ctx, rctx)
 	ctx = ec.Tracer.StartFieldResolverExecution(ctx, rctx)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Booking().Company(rctx, obj)
+		return obj.Company, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1062,44 +1046,10 @@ func (ec *executionContext) _Booking_company(ctx context.Context, field graphql.
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*models.Company)
+	res := resTmp.(models.Company)
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOCompany2ᚖgithubᚗcomᚋdeni1688ᚋbookingqlᚋmodelsᚐCompany(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _Booking_location(ctx context.Context, field graphql.CollectedField, obj *models.Booking) (ret graphql.Marshaler) {
-	ctx = ec.Tracer.StartFieldExecution(ctx, field)
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-		ec.Tracer.EndFieldExecution(ctx)
-	}()
-	rctx := &graphql.ResolverContext{
-		Object:   "Booking",
-		Field:    field,
-		Args:     nil,
-		IsMethod: true,
-	}
-	ctx = graphql.WithResolverContext(ctx, rctx)
-	ctx = ec.Tracer.StartFieldResolverExecution(ctx, rctx)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Booking().Location(rctx, obj)
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		return graphql.Null
-	}
-	res := resTmp.(*models.Location)
-	rctx.Result = res
-	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOLocation2ᚖgithubᚗcomᚋdeni1688ᚋbookingqlᚋmodelsᚐLocation(ctx, field.Selections, res)
+	return ec.marshalOCompany2githubᚗcomᚋdeni1688ᚋbookingqlᚋmodelsᚐCompany(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Company__id(ctx context.Context, field graphql.CollectedField, obj *models.Company) (ret graphql.Marshaler) {
@@ -3233,49 +3183,11 @@ func (ec *executionContext) _Booking(ctx context.Context, sel ast.SelectionSet, 
 		case "cost":
 			out.Values[i] = ec._Booking_cost(ctx, field, obj)
 		case "user":
-			field := field
-			out.Concurrently(i, func() (res graphql.Marshaler) {
-				defer func() {
-					if r := recover(); r != nil {
-						ec.Error(ctx, ec.Recover(ctx, r))
-					}
-				}()
-				res = ec._Booking_user(ctx, field, obj)
-				return res
-			})
+			out.Values[i] = ec._Booking_user(ctx, field, obj)
 		case "vehicle":
-			field := field
-			out.Concurrently(i, func() (res graphql.Marshaler) {
-				defer func() {
-					if r := recover(); r != nil {
-						ec.Error(ctx, ec.Recover(ctx, r))
-					}
-				}()
-				res = ec._Booking_vehicle(ctx, field, obj)
-				return res
-			})
+			out.Values[i] = ec._Booking_vehicle(ctx, field, obj)
 		case "company":
-			field := field
-			out.Concurrently(i, func() (res graphql.Marshaler) {
-				defer func() {
-					if r := recover(); r != nil {
-						ec.Error(ctx, ec.Recover(ctx, r))
-					}
-				}()
-				res = ec._Booking_company(ctx, field, obj)
-				return res
-			})
-		case "location":
-			field := field
-			out.Concurrently(i, func() (res graphql.Marshaler) {
-				defer func() {
-					if r := recover(); r != nil {
-						ec.Error(ctx, ec.Recover(ctx, r))
-					}
-				}()
-				res = ec._Booking_location(ctx, field, obj)
-				return res
-			})
+			out.Values[i] = ec._Booking_company(ctx, field, obj)
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -4051,30 +3963,12 @@ func (ec *executionContext) marshalOCompany2githubᚗcomᚋdeni1688ᚋbookingql�
 	return ec._Company(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalOCompany2ᚖgithubᚗcomᚋdeni1688ᚋbookingqlᚋmodelsᚐCompany(ctx context.Context, sel ast.SelectionSet, v *models.Company) graphql.Marshaler {
-	if v == nil {
-		return graphql.Null
-	}
-	return ec._Company(ctx, sel, v)
-}
-
 func (ec *executionContext) unmarshalOFloat2float64(ctx context.Context, v interface{}) (float64, error) {
 	return graphql.UnmarshalFloat(v)
 }
 
 func (ec *executionContext) marshalOFloat2float64(ctx context.Context, sel ast.SelectionSet, v float64) graphql.Marshaler {
 	return graphql.MarshalFloat(v)
-}
-
-func (ec *executionContext) marshalOLocation2githubᚗcomᚋdeni1688ᚋbookingqlᚋmodelsᚐLocation(ctx context.Context, sel ast.SelectionSet, v models.Location) graphql.Marshaler {
-	return ec._Location(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalOLocation2ᚖgithubᚗcomᚋdeni1688ᚋbookingqlᚋmodelsᚐLocation(ctx context.Context, sel ast.SelectionSet, v *models.Location) graphql.Marshaler {
-	if v == nil {
-		return graphql.Null
-	}
-	return ec._Location(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalOSort2githubᚗcomᚋdeni1688ᚋbookingqlᚋmodelsᚐSort(ctx context.Context, v interface{}) (models.Sort, error) {
@@ -4145,22 +4039,8 @@ func (ec *executionContext) marshalOUser2githubᚗcomᚋdeni1688ᚋbookingqlᚋm
 	return ec._User(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalOUser2ᚖgithubᚗcomᚋdeni1688ᚋbookingqlᚋmodelsᚐUser(ctx context.Context, sel ast.SelectionSet, v *models.User) graphql.Marshaler {
-	if v == nil {
-		return graphql.Null
-	}
-	return ec._User(ctx, sel, v)
-}
-
 func (ec *executionContext) marshalOVehicle2githubᚗcomᚋdeni1688ᚋbookingqlᚋmodelsᚐVehicle(ctx context.Context, sel ast.SelectionSet, v models.Vehicle) graphql.Marshaler {
 	return ec._Vehicle(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalOVehicle2ᚖgithubᚗcomᚋdeni1688ᚋbookingqlᚋmodelsᚐVehicle(ctx context.Context, sel ast.SelectionSet, v *models.Vehicle) graphql.Marshaler {
-	if v == nil {
-		return graphql.Null
-	}
-	return ec._Vehicle(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalO__EnumValue2ᚕgithubᚗcomᚋ99designsᚋgqlgenᚋgraphqlᚋintrospectionᚐEnumValueᚄ(ctx context.Context, sel ast.SelectionSet, v []introspection.EnumValue) graphql.Marshaler {

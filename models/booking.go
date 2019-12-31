@@ -15,4 +15,7 @@ type Booking struct {
 	StartMileage      float64 `json:"startMileage"`
 	EndMileage        float64 `json:"endMileage"`
 	Cost              float64 `json:"cost"`
+	User              User    `json:"User"`
+	Vehicle           Vehicle `json:"Vehicle"`
+	Company           Company `json:"Company"`
 }

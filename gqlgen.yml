@@ -7,15 +7,6 @@ model:
 models:
   Booking:
     model: github.com/deni1688/bookingql/models.Booking
-    fields:
-      user:
-        resolver: true
-      vehicle:
-        resolver: true
-      company:
-        resolver: true
-      location:
-        resolver: true
   BookingParams:
     model: github.com/deni1688/bookingql/models.BookingParams
   User:

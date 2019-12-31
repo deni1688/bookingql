@@ -19,7 +19,6 @@ type Booking {
     user: User
     vehicle: Vehicle
     company: Company
-    location: Location
 }
 
 type User {
